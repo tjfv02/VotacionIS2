@@ -6,9 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var candidatosRouter = require('./routes/candidatos');
-var usuariosRouter = require('./routes/usuarios');
-var votacionRouter = require('./routes/votacion');
+var votacionesRouter = require('./routes/votaciones');
 
 var app = express();
 
@@ -23,18 +21,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+
 app.use('/users', usersRouter);
-app.use('/candidatos', candidatosRouter);
-app.use('/usuarios', usuariosRouter); 
-app.use('/votacion', votacionRouter); 
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}`);
-});
-
-
+app.use('/votaciones', votacionesRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
