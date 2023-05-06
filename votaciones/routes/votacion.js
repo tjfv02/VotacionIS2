@@ -36,10 +36,11 @@ let candidatos = [
 // Array de votos (simulación de base de datos)
 let votos = [];
 let votosFraudulentos = 0;
+let votosNulos = 0;
 
 router.post('/votar', [
   body('idUsuario').notEmpty(),
-  body('idCandidato').notEmpty()
+  body('idCandidato')
 ], (req, res) => {
 
     if (!faseVotacionAbierta) {
@@ -65,7 +66,8 @@ router.post('/votar', [
   // Obtener el candidato seleccionado
   const candidato = candidatos.find(candidato => candidato.id === idCandidato);
   if (!candidato) {
-    return res.status(400).json({ msg: 'El candidato seleccionado no existe' });
+    votosNulos++;
+    return res.status(400).json({ msg: 'El candidato seleccionado no existe, por lo cual es voto nulo' });
   }
   
   // Incrementar el número de votos del candidato
@@ -84,6 +86,7 @@ router.post('/votar', [
 router.get('/estadisticas', (req, res) => {
   const totalVotos = votos.length;
   const totalVotosFraudulentos = votosFraudulentos;
+  const totalVotosNulos = votosNulos;
 
   // Obtener las estadísticas de votos por candidato
   const estadisticas = candidatos.map(candidato => {
@@ -96,7 +99,7 @@ router.get('/estadisticas', (req, res) => {
   });
   
   // Enviar las estadísticas en la respuesta
-  res.status(200).json({ votosCandidatos: estadisticas,totalVotos: totalVotos, votosFraudulentos: totalVotosFraudulentos }); 
+  res.status(200).json({ votosCandidatos: estadisticas,totalVotos: totalVotos, totalVotosNulos: totalVotosNulos, totalVotosFraudulentos: totalVotosFraudulentos }); 
 });
 
 router.post('/cerrar-fase-votacion/:abierta', (req, res) => {
