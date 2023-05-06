@@ -96,7 +96,7 @@ router.get('/estadisticas', (req, res) => {
   });
   
   // Enviar las estadísticas en la respuesta
-  res.status(200).json({ estadisticas: estadisticas, votosFraudulentos: totalVotosFraudulentos }); 
+  res.status(200).json({ votosCandidatos: estadisticas,totalVotos: totalVotos, votosFraudulentos: totalVotosFraudulentos }); 
 });
 
 router.post('/cerrar-fase-votacion/:abierta', (req, res) => {
