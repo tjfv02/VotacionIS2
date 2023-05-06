@@ -1,0 +1,22 @@
+{
+  "name": "final",
+  "version": "1.0.0",
+  "description": "IS2 Final",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjfv02/VotacionIS2.git"
+  },
+  "author": "Tito Fajardo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tjfv02/VotacionIS2/issues"
+  },
+  "homepage": "https://github.com/tjfv02/VotacionIS2#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
