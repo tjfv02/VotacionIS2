@@ -99,8 +99,18 @@ router.get('/estadisticas', (req, res) => {
   res.status(200).json({ estadisticas: estadisticas, votosFraudulentos: totalVotosFraudulentos }); 
 });
 
-router.get('/', (req, res) => {
-    res.status(200).json({ test: "Hola "}); 
-  });
+router.post('/cerrar-fase-votacion/:abierta', (req, res) => {
+  const abierta = req.params.abierta === 'true';
+
+  if (abierta === faseVotacionAbierta) {
+    const estadoFase = faseVotacionAbierta ? 'abierta' : 'cerrada';
+    return res.status(400).json({ error: `La fase de votación ya está ${estadoFase}` });
+  }
+
+  faseVotacionAbierta = abierta;
+
+  const nuevoEstado = abierta ? 'abierta' : 'cerrada';
+  res.status(200).json({ message: `La fase de votación ha sido ${nuevoEstado} exitosamente` });
+});
 //
 module.exports = router;
